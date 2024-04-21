@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { auth, db } from "../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { IoSendSharp } from "react-icons/io5";
 
 const SendMessage = ({ scroll, id }) => {
   const [message, setMessage] = useState("");
@@ -38,8 +39,11 @@ const SendMessage = ({ scroll, id }) => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button type="submit" className="bg-slate-400">
-        Send
+      <button
+        type="submit"
+        className="bg-slate-400 flex items-center justify-center"
+      >
+        <IoSendSharp />
       </button>
     </form>
   );

@@ -13,19 +13,26 @@ import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { getExperimentById } from "../requests";
 
 const ChatBox = () => {
   const { id } = useParams();
-  const [user] = useAuthState(auth);
-  const [messages, setMessages] = useState([]);
-  const scroll = useRef();
   const navigate = useNavigate();
 
+  const [messages, setMessages] = useState([]);
+  const [experiment, setExperiment] = useState(null);
+
+  const [user] = useAuthState(auth);
+  const scroll = useRef();
+
   useEffect(() => {
-    const socket = new WebSocket(process.env.REACT_APP_EXPERIMENT_SOCKET_URL);
-    socket.addEventListener("open", () => {
-      console.log("Connected to the WS Server");
-    });
+    getExperimentById(id)
+      .then((data) => {
+        setExperiment(data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch experiment", error);
+      });
 
     const q = query(
       collection(db, id),
@@ -46,20 +53,41 @@ const ChatBox = () => {
   }, [id]);
 
   return user ? (
-    <div className="bg-slate-100">
-      <main>
-        <div className="p-5 mb-14">
-          {messages?.map((message) => (
-            <Message key={message.id} message={message} />
-          ))}
+    <>
+      {experiment && (
+        <div className="w-full flex items-center justify-between p-5 bg-slate-300 fixed">
+          <div className="flex flex-col gap-1">
+            <h1 className="text-2xl text-black">{experiment.exp_subject}</h1>
+            <p className="text-lg text-black">
+              {experiment.exp_provoking_prompt}
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              auth.signOut();
+              navigate(`/login/${id}`);
+            }}
+            className="text-black bg-white p-2 rounded-md hover:bg-gray-200"
+          >
+            Logout
+          </button>
         </div>
-        {/* when a new message enters the chat, the screen scrolls down to the scroll div */}
-        <span ref={scroll}></span>
-        <SendMessage scroll={scroll} id={id} />
-      </main>
-    </div>
+      )}
+      <div className="bg-gray-400">
+        <main>
+          <div className="p-5 mb-14">
+            {messages?.map((message) => (
+              <Message key={message.id} message={message} />
+            ))}
+          </div>
+          {/* when a new message enters the chat, the screen scrolls down to the scroll div */}
+          <span ref={scroll}></span>
+          <SendMessage scroll={scroll} id={id} />
+        </main>
+      </div>
+    </>
   ) : (
-    navigate("/login")
+    navigate(`/login/${id}`)
   );
 };
 

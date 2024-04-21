@@ -77,11 +77,10 @@ input {
 .chat-bubble {
   border-radius: 20px 20px 20px 0;
   padding: 15px;
-  background-color: #7cc5d9;
-  color: #1c2c4c;
+  background-color: rgb(232, 237, 241);
   width: max-content;
   max-width: calc(100% - 50px);
-  box-shadow: -2px 2px 1px 1px #4c768d;
+  box-shadow: -1px 1px 1px 1px rgb(81, 83, 85);
   display: flex;
   align-items: flex-start;
   margin-bottom: 20px;
@@ -89,8 +88,8 @@ input {
 .chat-bubble.right {
   margin-left: auto;
   border-radius: 20px 20px 0 20px;
-  background-color: #fff;
-  box-shadow: -2px 2px 1px 1px #88dded;
+  background-color: rgb(164, 199, 166);
+  box-shadow: -1px 1px 1px 1px rgb(83, 136, 85);
 }
 .chat-bubble__left {
   width: 35px;
