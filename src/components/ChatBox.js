@@ -54,28 +54,29 @@ const ChatBox = () => {
 
   return user ? (
     <>
-      {experiment && (
-        <div className="w-full flex items-center justify-between p-5 bg-slate-300 fixed">
+      <div className="w-full flex items-center justify-between p-5 bg-slate-300 fixed">
+        {experiment && (
           <div className="flex flex-col gap-1">
             <h1 className="text-2xl text-black">{experiment.exp_subject}</h1>
             <p className="text-lg text-black">
               {experiment.exp_provoking_prompt}
             </p>
           </div>
-          <button
-            onClick={() => {
-              auth.signOut();
-              navigate(`/login/${id}`);
-            }}
-            className="text-black bg-white p-2 rounded-md hover:bg-gray-200"
-          >
-            Logout
-          </button>
-        </div>
-      )}
-      <div className="bg-gray-400">
+        )}
+        <button
+          onClick={() => {
+            auth.signOut();
+            navigate(`/login/${id}`);
+          }}
+          className="text-black bg-white p-2 rounded-md hover:bg-gray-200"
+        >
+          Logout
+        </button>
+      </div>
+      <div className="h-20"></div>
+      <div className="bg-gray-400 h-screen">
         <main>
-          <div className="p-5 mb-14">
+          <div className="p-5 mb-14 bg-gray-400">
             {messages?.map((message) => (
               <Message key={message.id} message={message} />
             ))}
