@@ -58,9 +58,6 @@ const ChatBox = () => {
         {experiment && (
           <div className="flex flex-col gap-1">
             <h1 className="text-2xl text-black">{experiment.exp_subject}</h1>
-            <p className="text-lg text-black">
-              {experiment.exp_provoking_prompt}
-            </p>
           </div>
         )}
         <button
@@ -73,10 +70,9 @@ const ChatBox = () => {
           Logout
         </button>
       </div>
-      <div className="h-20"></div>
       <div className="bg-gray-400 h-screen">
         <main>
-          <div className="p-5 mb-14 bg-gray-400">
+          <div className="px-5 bg-gray-400 pb-20 pt-28">
             {messages?.map((message) => (
               <Message key={message.id} message={message} />
             ))}
