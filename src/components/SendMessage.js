@@ -19,6 +19,7 @@ const SendMessage = ({ scroll, id }) => {
       createdAt: serverTimestamp(),
       uid,
     });
+
     setMessage("");
     scroll.current.scrollIntoView({ behavior: "smooth" });
   };

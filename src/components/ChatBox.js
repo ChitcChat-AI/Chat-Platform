@@ -14,6 +14,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { getExperimentById } from "../requests";
+import Logo from "../img/logo.png";
 
 const ChatBox = () => {
   const { id } = useParams();
@@ -28,7 +29,8 @@ const ChatBox = () => {
   useEffect(() => {
     getExperimentById(id)
       .then((data) => {
-        setExperiment(data);
+        console.log(data);
+        setExperiment(data.exp);
       })
       .catch((error) => {
         console.error("Failed to fetch experiment", error);
@@ -51,24 +53,18 @@ const ChatBox = () => {
     });
     return () => unsubscribe;
   }, [id]);
-
+  console.log(experiment);
   return user ? (
     <>
       <div className="w-full flex items-center justify-between p-5 bg-slate-300 fixed">
         {experiment && (
           <div className="flex flex-col gap-1">
-            <h1 className="text-2xl text-black">{experiment.exp_subject}</h1>
+            <h1 className="text-4xl text-black mx-2">
+              {experiment.exp_subject}
+            </h1>
           </div>
         )}
-        <button
-          onClick={() => {
-            auth.signOut();
-            navigate(`/login/${id}`);
-          }}
-          className="text-black bg-white p-2 rounded-md hover:bg-gray-200"
-        >
-          Logout
-        </button>
+        <img src={Logo} alt="logo" className="w-20 h-20 mr-5" />
       </div>
       <div className="bg-gray-400 h-screen">
         <main>
@@ -81,7 +77,7 @@ const ChatBox = () => {
           <span ref={scroll}></span>
           <SendMessage scroll={scroll} id={id} />
         </main>
-      </div>
+      </div>{" "}
     </>
   ) : (
     navigate(`/login/${id}`)
