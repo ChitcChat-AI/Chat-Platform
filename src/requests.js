@@ -12,4 +12,19 @@ const getExperimentById = async (id) => {
   }
 };
 
-export { getExperimentById };
+// Waiting for the server api to be ready
+const sendSurveyResult = async (experimentID, clientID, surveyResult) => {
+  const URL = baseURL + ``;
+  try {
+    // const response = await axios.post(URL, { surveyResult });
+    console.log("Survey Result: ", surveyResult);
+    console.log("Client ID: ", clientID);
+    console.log("Experiment ID: ", experimentID);
+    // return response.data;
+  } catch (error) {
+    console.error("Failed to send survey result", error);
+    return null;
+  }
+};
+
+export { getExperimentById, sendSurveyResult };

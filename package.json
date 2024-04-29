@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@preline/overlay": "^2.1.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -14,6 +15,8 @@
     "react-icons": "^5.1.0",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
+    "tailwind-merge": "^2.3.0",
+    "tw-elements-react": "^1.0.0-alpha2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
