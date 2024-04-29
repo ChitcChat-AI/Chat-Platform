@@ -13,7 +13,11 @@ import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { getExperimentById, websocketCreateSession, websocketDestroySession} from "../requests";
+import {
+  getExperimentById,
+  websocketCreateSession,
+  websocketDestroySession,
+} from "../requests";
 import Logo from "../img/logo.png";
 
 const ChatBox = () => {
@@ -26,25 +30,24 @@ const ChatBox = () => {
   const [user] = useAuthState(auth);
   const scroll = useRef();
 
-  useEffect( () => {
-    (async  () => {await websocketCreateSession();})()
+  useEffect(() => {
+    (async () => {
+      await websocketCreateSession();
+    })();
     return () => websocketDestroySession();
   }, []);
 
   useEffect(() => {
     getExperimentById(id)
       .then((data) => {
-        console.log(data);
         setExperiment(data.exp);
       })
       .catch((error) => {
         console.error("Failed to fetch experiment", error);
+        // consider logout from chat...
       });
 
-    const q = query(
-      collection(db, id),
-      orderBy("createdAt", "desc")
-    );
+    const q = query(collection(db, id), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       const fetchedMessages = [];
       QuerySnapshot.forEach((doc) => {
@@ -57,7 +60,7 @@ const ChatBox = () => {
     });
     return () => unsubscribe;
   }, [id]);
-  console.log(experiment);
+
   return user ? (
     <>
       <div className="w-full flex items-center justify-between p-5 bg-slate-300 fixed">

@@ -13,25 +13,29 @@ const getExperimentById = async (id) => {
 };
 
 const websocketCreateSession = async () => {
-  const URL = process.env.REACT_APP_EXPERIMENT_SOCKET_URL + '/login';
+  const URL = process.env.REACT_APP_WEB_SOCKET_SESSION_URL;
+  console.log(URL);
+
   try {
-    const response = await axios.post(URL);
-    console.log(response);
+    const response = await axios.post(URL, {});
+    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.error("Failed connect to websocket", error);
     return null;
   }
-}
+};
 // chasda
 const websocketDestroySession = async () => {
-  const URL = process.env.REACT_APP_EXPERIMENT_SOCKET_URL + '/logout';
+  const URL = process.env.REACT_APP_WEB_SOCKET_SESSION_URL;
   try {
     const response = await axios.delete(URL);
-    console.log(response);
+    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.error("Failed disconnect to websocket", error);
     return null;
   }
-}
+};
 
-export { getExperimentById, websocketDestroySession, websocketCreateSession  };
+export { getExperimentById, websocketDestroySession, websocketCreateSession };
