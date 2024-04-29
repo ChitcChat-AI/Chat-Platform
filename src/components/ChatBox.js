@@ -13,7 +13,7 @@ import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { getExperimentById } from "../requests";
+import { getExperimentById, websocketCreateSession, websocketDestroySession} from "../requests";
 import Logo from "../img/logo.png";
 
 const ChatBox = () => {
@@ -25,6 +25,11 @@ const ChatBox = () => {
 
   const [user] = useAuthState(auth);
   const scroll = useRef();
+
+  useEffect( () => {
+    (async  () => {await websocketCreateSession();})()
+    return () => websocketDestroySession();
+  }, []);
 
   useEffect(() => {
     getExperimentById(id)
@@ -38,8 +43,7 @@ const ChatBox = () => {
 
     const q = query(
       collection(db, id),
-      orderBy("createdAt", "desc"),
-      limit(50)
+      orderBy("createdAt", "desc")
     );
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       const fetchedMessages = [];
