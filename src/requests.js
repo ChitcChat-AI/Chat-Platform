@@ -12,30 +12,19 @@ const getExperimentById = async (id) => {
   }
 };
 
-const websocketCreateSession = async () => {
-  const URL = process.env.REACT_APP_WEB_SOCKET_SESSION_URL;
-  console.log(URL);
-
+// Waiting for the server api to be ready
+const sendSurveyResult = async (experimentID, clientID, surveyResult) => {
+  const URL = baseURL + ``;
   try {
-    const response = await axios.post(URL, {});
-    console.log(response.data);
-    return response.data;
+    // const response = await axios.post(URL, { surveyResult });
+    console.log("Survey Result: ", surveyResult);
+    console.log("Client ID: ", clientID);
+    console.log("Experiment ID: ", experimentID);
+    // return response.data;
   } catch (error) {
-    console.error("Failed connect to websocket", error);
-    return null;
-  }
-};
-// chasda
-const websocketDestroySession = async () => {
-  const URL = process.env.REACT_APP_WEB_SOCKET_SESSION_URL;
-  try {
-    const response = await axios.delete(URL);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Failed disconnect to websocket", error);
+    console.error("Failed to send survey result", error);
     return null;
   }
 };
 
-export { getExperimentById, websocketDestroySession, websocketCreateSession };
+export { getExperimentById, sendSurveyResult };

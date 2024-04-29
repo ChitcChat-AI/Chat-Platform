@@ -8,7 +8,7 @@ const SendMessage = ({ scroll, id }) => {
   const sendMessage = async (event) => {
     event.preventDefault();
     if (message.trim() === "") {
-      alert("Enter valid message");
+      alert("Please write a message");
       return;
     }
     const { uid, displayName, photoURL } = auth.currentUser;
@@ -35,14 +35,14 @@ const SendMessage = ({ scroll, id }) => {
         id="messageInput"
         name="messageInput"
         type="text"
-        className="form-input__input"
+        className="form-input__input cursor-text"
         placeholder="type message..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
       <button
         type="submit"
-        className="bg-slate-400 flex items-center justify-center"
+        className="bg-slate-400 flex items-center justify-center hover:bg-slate-600"
       >
         <IoSendSharp />
       </button>
