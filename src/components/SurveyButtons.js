@@ -9,7 +9,7 @@ const SurveyButtons = ({ experiment, clientID, setSurvey }) => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full gap-3 mt-5">
+    <div className="flex  items-center justify-center w-full gap-3 mt-5">
       <Button
         text={opinionOptions.FOR}
         onClick={() => handleOnClick(opinionOptions.FOR)}

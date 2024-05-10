@@ -9,7 +9,7 @@ const Button = ({ text, onClick, color }) => {
   };
 
   const className = twMerge(
-    "w-[120px] justify-center py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent",
+    "sm:w-[120px] w-[60px] justify-center py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent",
     colorDict[color]
   );
   return (
