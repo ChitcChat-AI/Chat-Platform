@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../img/logo.png";
 
-const ExperimentEnded = ({ text, experimentID, clientID }) => {
+const ExperimentEnded = ({ text }) => {
   return (
     <div className="flex flex-col items-center h-screen bg-slate-100 pt-10">
       <img src={Logo} alt="logo" className="w-48 h-48 mb-5" />

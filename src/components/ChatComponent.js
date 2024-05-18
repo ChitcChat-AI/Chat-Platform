@@ -12,15 +12,19 @@ import {
   limit,
 } from "firebase/firestore";
 
-const ChatComponent = ({ experiment, clientID }) => {
+const ChatComponent = ({
+  experiment,
+  clientID,
+  survey2,
+  setSurvey2,
+  setStatus,
+}) => {
   const [messages, setMessages] = useState([]);
   const [isSurvey, setIsSurvey] = useState(true);
   const scroll = useRef();
 
   useEffect(() => {
     // check if answered first survey
-
-    // check if enswered second survey
 
     const q = query(
       collection(db, experiment.exp_id),
@@ -69,6 +73,18 @@ const ChatComponent = ({ experiment, clientID }) => {
           experiment={experiment}
           clientID={clientID}
           setSurvey={setIsSurvey}
+          surveyNumber={1}
+          setStatus={() => {}}
+        />
+      )}
+      {experiment && survey2 && (
+        <Modal
+          text={"Thank you for participating in the experiment!"}
+          experiment={experiment}
+          clientID={clientID}
+          setSurvey={setSurvey2}
+          surveyNumber={2}
+          setStatus={setStatus}
         />
       )}
     </>
