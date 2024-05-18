@@ -1,21 +1,46 @@
 import { socketSendMessagePrompt } from "./socketMessagePrompt";
+import { statusOptions } from "./constants";
+import { isAnsweredSurvey } from "./requests";
 
-export const InitSocket = (id, setStatus, setClientID) => {
+let clientIDlocal = null;
+
+export const InitSocket = (id, setStatus, setClientID, setSurvey2) => {
   const socket = new WebSocket(process.env.REACT_APP_WEB_SOCKET_CONNECTION);
 
-  // Connection opened
+  const handleStatusChanged = (status) => {
+    let isAnswered = true;
+    if (clientIDlocal !== null) {
+      isAnswered = isAnsweredSurvey(id, clientIDlocal);
+    }
+    if (
+      (status === statusOptions.COMPLETED ||
+        status === statusOptions.PROCESSING) &&
+      !isAnswered
+    ) {
+      setSurvey2(true);
+      setStatus(statusOptions.RUNNING);
+    } else {
+      setStatus(status);
+    }
+  };
+
   socket.onopen = (event) => {
-    // Add the option to set the clientID after connection.
-    console.log(event);
+    console.log("event", event);
     setClientID(event.data);
     socket.send(socketSendMessagePrompt(id));
   };
 
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    // get from the server my ID.
-    data.clientID ? setClientID(data.clientID) : null;
-    data.exp_status ? setStatus(data.exp_status) : null;
+
+    console.log("Received data: ", data);
+    data.clientID
+      ? () => {
+          clientIDlocal = data.clientID;
+          setClientID(data.clientID);
+        }
+      : null;
+    data.exp_status ? handleStatusChanged(data.exp_status) : null;
   };
 
   return socket;

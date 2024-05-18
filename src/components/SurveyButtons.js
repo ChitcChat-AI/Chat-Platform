@@ -1,11 +1,18 @@
 import React from "react";
 import { sendSurveyResult } from "../requests";
 import Button from "./Button";
-import { opinionOptions } from "../constants";
-const SurveyButtons = ({ experiment, clientID, setSurvey }) => {
+import { opinionOptions, statusOptions } from "../constants";
+const SurveyButtons = ({
+  experiment,
+  clientID,
+  setSurvey,
+  surveyNumber,
+  setStatus,
+}) => {
   const handleOnClick = (opinion) => {
-    sendSurveyResult(experiment.exp_id, clientID, opinion);
+    sendSurveyResult(experiment.exp_id, clientID, opinion, surveyNumber);
     setSurvey(false);
+    setStatus(statusOptions.COMPLETED);
   };
 
   return (

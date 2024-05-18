@@ -2,7 +2,7 @@ import React from "react";
 
 const SurveyText = ({ text, exp_subject }) => {
   return (
-    <p className="sm:text-3xl text-center">
+    <p className="md:text-3xl text-center">
       {text}
       {
         " Please let us know what is your opinion about the experiment subject below."
