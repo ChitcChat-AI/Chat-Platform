@@ -11,6 +11,7 @@ import {
   onSnapshot,
   limit,
 } from "firebase/firestore";
+import { isAnsweredFirstSurvey } from "../requests";
 
 const ChatComponent = ({
   experiment,
@@ -20,12 +21,15 @@ const ChatComponent = ({
   setStatus,
 }) => {
   const [messages, setMessages] = useState([]);
-  const [isSurvey, setIsSurvey] = useState(true);
+  const [isSurvey, setIsSurvey] = useState(false);
   const scroll = useRef();
 
   useEffect(() => {
-    // check if answered first survey
-
+    isAnsweredFirstSurvey(experiment.exp_id, clientID).then((isAnswered) => {
+      if (!isAnswered) {
+        setIsSurvey(true);
+      }
+    });
     const q = query(
       collection(db, experiment.exp_id),
       orderBy("createdAt", "desc")
