@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path="/:id" element={<Register />} />
-        <Route exact path="/chat/:id" element={<ChatBox />} />
+        <Route exact path="/chat/:id/user/:uid" element={<ChatBox />} />
       </Routes>
     </BrowserRouter>
   );

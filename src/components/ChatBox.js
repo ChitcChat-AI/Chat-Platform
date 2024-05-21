@@ -9,17 +9,27 @@ import { bodyComponentDict } from "../bodyComponentDict";
 import { InitSocket } from "../socketConnection";
 
 const ChatBox = () => {
-  const { id } = useParams();
+  const { id, uid } = useParams();
   const navigate = useNavigate();
 
   const [status, setStatus] = useState(null);
-  const [clientID, setClientID] = useState(null);
   const [experiment, setExperiment] = useState(null);
   const [survey2, setSurvey2] = useState(false);
   const [user] = useAuthState(auth);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(true);
 
   useEffect(() => {
-    const socket = InitSocket(id, setStatus, setClientID, setSurvey2);
+    if (user) {
+      if (user.uid !== uid) {
+        setIsUserAuthenticated(false);
+      }
+    } else {
+      setIsUserAuthenticated(false);
+    }
+  }, [user, uid]);
+
+  useEffect(() => {
+    const socket = InitSocket(id, setStatus, uid, setSurvey2);
 
     getExperimentById(id)
       .then((data) => {
@@ -33,12 +43,12 @@ const ChatBox = () => {
     };
   }, [id]);
 
-  return user
+  return isUserAuthenticated
     ? status &&
         bodyComponentDict(
           status,
           experiment,
-          clientID,
+          uid,
           survey2,
           setSurvey2,
           setStatus
