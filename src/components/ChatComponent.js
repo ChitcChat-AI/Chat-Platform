@@ -43,7 +43,7 @@ const ChatComponent = ({
         (a, b) => a.createdAt - b.createdAt
       );
       setMessages(sortedMessages);
-      scroll.current.scrollIntoView({ behavior: "smooth" });
+      scroll.current.scrollIntoView({ behavior: "smooth", inline: "end" });
     });
     return () => unsubscribe;
   }, [experiment, clientID]);

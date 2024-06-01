@@ -33,7 +33,11 @@ const SendMessage = ({ scroll, id }) => {
     });
 
     setMessage("");
-    scroll.current.scrollIntoView({ behavior: "smooth" });
+    scroll.current.scrollIntoView({
+      behavior: "instant",
+      inline: "end",
+      blocl: "end",
+    });
   };
   return (
     <form onSubmit={(event) => sendMessage(event)} className="flex">
