@@ -5,6 +5,18 @@ import { IoSendSharp } from "react-icons/io5";
 
 const SendMessage = ({ scroll, id }) => {
   const [message, setMessage] = useState("");
+
+  const handleChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage(e);
+    }
+  };
+
   const sendMessage = async (event) => {
     event.preventDefault();
     if (message.trim() === "") {
@@ -24,25 +36,19 @@ const SendMessage = ({ scroll, id }) => {
     scroll.current.scrollIntoView({ behavior: "smooth" });
   };
   return (
-    <form
-      onSubmit={(event) => sendMessage(event)}
-      className="send-message  bg-slate-300"
-    >
-      <label htmlFor="messageInput" hidden>
-        Enter Message
-      </label>
-      <input
-        id="messageInput"
-        name="messageInput"
-        type="text"
-        className="form-input__input cursor-text"
-        placeholder="type message..."
+    <form onSubmit={(event) => sendMessage(event)} className="flex">
+      <textarea
         value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        rows="1"
+        placeholder="Type your message..."
+        className="cursor-text w-full resize-none	p-2"
+        autoComplete="off"
       />
       <button
         type="submit"
-        className="bg-slate-400 flex items-center justify-center hover:bg-slate-600"
+        className="bg-slate-400 flex items-center justify-center  rounded-r-lg hover:bg-slate-600 w-20"
       >
         <IoSendSharp />
       </button>

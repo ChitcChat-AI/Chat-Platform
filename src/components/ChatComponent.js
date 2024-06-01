@@ -43,13 +43,17 @@ const ChatComponent = ({
         (a, b) => a.createdAt - b.createdAt
       );
       setMessages(sortedMessages);
+      scroll.current.scrollIntoView({ behavior: "smooth" });
     });
     return () => unsubscribe;
-  }, [experiment]);
+  }, [experiment, clientID]);
 
   return (
-    <>
-      <div className="w-full flex items-center justify-between p-5 bg-slate-300 fixed">
+    <div className="overflow-hidden h-screen">
+      <div
+        id="chat-title"
+        className="w-full flex items-center justify-between bg-slate-300"
+      >
         {experiment && (
           <div className="flex flex-col gap-1">
             <h1 className="text-4xl text-black mx-2">
@@ -59,17 +63,17 @@ const ChatComponent = ({
         )}
         <img src={Logo} alt="logo" className="w-20 h-20 mr-5" />
       </div>
-      <div className="bg-gray-400 h-screen">
-        <main>
-          <div className="px-5 bg-gray-400 pb-20 pt-36">
-            {messages?.map((message) => (
-              <Message key={message.id} message={message} />
-            ))}
-          </div>
-          {/* when a new message enters the chat, the screen scrolls down to the scroll div */}
-          <span ref={scroll}></span>
-          <SendMessage scroll={scroll} id={experiment.exp_id} />
-        </main>
+      <div
+        id="message-box"
+        className="bg-gray-400 overflow-auto px-5 pt-5 flex flex-col gap-5"
+      >
+        {messages?.map((message) => (
+          <Message key={message.id} message={message} />
+        ))}
+        <span ref={scroll}></span>
+      </div>
+      <div id="send-message" className="w-full py-5 px-5  bg-slate-300	">
+        <SendMessage scroll={scroll} id={experiment.exp_id} />
       </div>
       {experiment && isSurvey && (
         <Modal
@@ -91,7 +95,7 @@ const ChatComponent = ({
           setStatus={setStatus}
         />
       )}
-    </>
+    </div>
   );
 };
 
