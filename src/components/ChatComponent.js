@@ -56,12 +56,12 @@ const ChatComponent = ({
       >
         {experiment && (
           <div className="flex flex-col gap-1">
-            <h1 className="text-4xl text-black mx-2">
+            <h1 className="text-lg md:text-2xl lg:text-3xl xl:text-4xl text-black mx-2">
               {experiment.exp_subject}
             </h1>
           </div>
         )}
-        <img src={Logo} alt="logo" className="w-20 h-20 mr-5" />
+        <img src={Logo} alt="logo" className="w-14 h-14 md:w-20 md:h-20 mr-5" />
       </div>
       <div
         id="message-box"
