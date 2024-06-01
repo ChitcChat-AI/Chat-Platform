@@ -65,7 +65,7 @@ const SendMessage = ({ scroll, id }) => {
         </button>
       ) : (
         <button
-          type="submit"
+          type=""
           className="bg-slate-400 opacity-50 cursor-not-allowed flex items-center justify-center rounded-r-lg w-20"
           disabled
         >
