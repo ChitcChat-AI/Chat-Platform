@@ -72,7 +72,10 @@ const ChatComponent = ({
         ))}
         <span ref={scroll}></span>
       </div>
-      <div id="send-message" className="w-full py-5 px-5  bg-slate-300	">
+      <div
+        id="send-message"
+        className="w-full py-5 px-5 bg-slate-300 content-center"
+      >
         <SendMessage scroll={scroll} id={experiment.exp_id} />
       </div>
       {experiment && isSurvey && (
