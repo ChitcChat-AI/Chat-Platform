@@ -10,8 +10,11 @@ import {
   orderBy,
   onSnapshot,
   limit,
+  getDoc,
+  getDocs,
 } from "firebase/firestore";
 import { isAnsweredFirstSurvey } from "../requests";
+import { set } from "firebase/database";
 
 const ChatComponent = ({
   experiment,
@@ -30,19 +33,48 @@ const ChatComponent = ({
         setIsSurvey(true);
       }
     });
-    const q = query(
+
+    const allMessages = query(
       collection(db, experiment.exp_id),
-      orderBy("createdAt", "desc")
+      orderBy("createdAt", "asc")
     );
-    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+
+    getDocs(allMessages).then((QuerySnapshot) => {
       const fetchedMessages = [];
       QuerySnapshot.forEach((doc) => {
         fetchedMessages.push({ ...doc.data(), id: doc.id });
       });
-      const sortedMessages = fetchedMessages.sort(
-        (a, b) => a.createdAt - b.createdAt
-      );
-      setMessages(sortedMessages);
+
+      setMessages(fetchedMessages);
+      scroll.current.scrollIntoView({ behavior: "smooth", inline: "end" });
+    });
+
+    const q = query(
+      collection(db, experiment.exp_id),
+      orderBy("createdAt", "desc"),
+      limit(5)
+    );
+    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+      const fetchedMessages = [];
+      QuerySnapshot.forEach((doc) => {
+        if (doc.data().createdAt == null) {
+          return;
+        }
+        fetchedMessages.push({ ...doc.data(), id: doc.id });
+      });
+
+      setMessages((prevMessages) => {
+        const prevMessagesIds = prevMessages.map((m) => m.id);
+        const newMessages = fetchedMessages.filter(
+          (m) => !prevMessagesIds.includes(m.id)
+        );
+
+        const allMessages = [...prevMessages, ...newMessages];
+        const sortedMessages = allMessages.sort(
+          (a, b) => a.createdAt - b.createdAt
+        );
+        return sortedMessages;
+      });
       scroll.current.scrollIntoView({ behavior: "smooth", inline: "end" });
     });
     return () => unsubscribe;
