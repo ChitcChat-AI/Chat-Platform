@@ -83,7 +83,6 @@ input {
   box-shadow: -1px 1px 1px 1px rgb(81, 83, 85);
   display: flex;
   align-items: flex-start;
-  margin-bottom: 20px;
 }
 .chat-bubble.right {
   margin-left: auto;
@@ -111,38 +110,13 @@ input {
   text-align: right;
 }
 
-/* send message */
-.send-message {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  padding: 20px 30px;
-  display: flex;
-}
-.send-message > input {
-  height: 40px;
-  padding: 10px 10px;
-  border-radius: 5px 0 0 5px;
-  border: none;
-  flex-grow: 1;
-  background-color: white;
-  color: #1c2c4c;
-  font-size: 1rem;
-}
-.send-message > input:placeholder {
-  color: #ddd;
-}
-.send-message > :is(input, button):focus {
-  outline: none;
-  border: 1px solid ;
-}
-.send-message > button {
-  width: 70px;
-  height: 40px;
-  padding: 5px 10px;
-  border-radius: 0 5px 5px 0;
-  color: #242443;
-  border: 1px solid ;
-  font-weight: 600;
-}
 
+#message-box {
+ height: 72%;
+}
+#chat-title{
+ height: 17%;
+}
+#send-message {
+ height: 11%;
+}

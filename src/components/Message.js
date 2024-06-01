@@ -13,9 +13,10 @@ const Message = ({ message }) => {
       />
       <div className="chat-bubble__right">
         <p className="user-name">{message.name}</p>
-        <p className="user-message">{message.text}</p>
+        <p className="user-message whitespace-pre-wrap">{message.text}</p>
       </div>
     </div>
   );
 };
 export default Message;
+
