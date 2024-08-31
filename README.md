@@ -19,22 +19,28 @@ Before you begin, ensure you have met the following requirements:
 To install and run, follow these steps:
 
 1. **Clone the Repository**  
+
    git clone https://github.com/ChitcChat-AI/Chat-Platform.git
 
 2. **Navigate to the Project Directory**
-    cd Chat-Platform
+
+   cd Chat-Platform
 
 3. **Install Dependencies**
-     npm install
+
+   npm install
 
 4. **Set Up Environment Variables**
-    create a .env file in the root directory and add the necessary variables
 
-6. **Run the Application**
-    npm start
+   create a .env file in the root directory and add the necessary variables
 
-7. **Access the Application**
-     Open your web browser and go to http://localhost:3000/<exp-id> to access the application. 
+5. **Run the Application**
+
+   npm start
+
+6. **Access the Application**
+
+    Open your web browser and go to http://localhost:3000/<exp-id> to access the application. 
      for entering a chat room:
       - Include the experiment ID in the URL path. You can create an experiment in the research platform and copy the link to get the correct ID.
       - Before attempting to join the chat room, verify that the experiment status is set to "running." You can check the experiment status on the research platform to confirm it's active.
