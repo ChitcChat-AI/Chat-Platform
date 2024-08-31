@@ -12,17 +12,17 @@ This project is particularly suited for researchers in discourse analysis and op
 
 ### Prerequisites
 Before you begin, ensure you have met the following requirements:
-- Node.js, npm
-- 
+- npm
+
 
 ### Steps
 To install and run, follow these steps:
 
 1. **Clone the Repository**  
-   git clone https://github.com/ChitcChat-AI/Backend-Server.git
+   git clone https://github.com/ChitcChat-AI/Chat-Platform.git
 
 2. **Navigate to the Project Directory**
-    cd Backend-Server
+    cd Chat-Platform
 
 3. **Install Dependencies**
      npm install
