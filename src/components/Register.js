@@ -21,7 +21,6 @@ const Register = () => {
     if (user) {
       setUid(user.uid);
       isParticipantAuthenticated(id, user.uid).then((isAuth) => {
-        console.log("isConnected", isAuth);
         if (isAuth) {
           setIsUserAuthenticated(true);
         }
@@ -33,11 +32,9 @@ const Register = () => {
   const googleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     const userCredential = await signInWithPopup(auth, provider);
-    console.log(userCredential);
     saveParticipant(id, userCredential.user.uid);
     navigate(`/chat/${id}/user/${userCredential.user.uid}`);
   };
-  console.log("isUserAuthenticated", isUserAuthenticated);
   return !isUserAuthenticated ? (
     <div className="flex flex-col items-center h-screen bg-slate-100 pt-10">
       <img src={Logo} alt="logo" className="w-48 h-48 mb-5" />

@@ -10,11 +10,9 @@ import {
   orderBy,
   onSnapshot,
   limit,
-  getDoc,
   getDocs,
 } from "firebase/firestore";
 import { isAnsweredFirstSurvey } from "../requests";
-import { set } from "firebase/database";
 
 const ChatComponent = ({
   experiment,

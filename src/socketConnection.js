@@ -10,7 +10,6 @@ export const InitSocket = (id, setStatus, uid, setSurvey2) => {
       status === statusOptions.COMPLETED ||
       status === statusOptions.PROCESSING
     ) {
-      console.log("uid", uid);
       if (uid !== null) {
         isAnsweredSecondSurvey(id, uid).then((isAnswered) => {
           if (!isAnswered) {
@@ -26,14 +25,12 @@ export const InitSocket = (id, setStatus, uid, setSurvey2) => {
     }
   };
 
-  socket.onopen = (event) => {
-    console.log("event", event);
+  socket.onopen = (_) => {
     socket.send(socketSendMessagePrompt(id));
   };
 
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    console.log("data", data);
     if (data.exp_status) {
       handleStatusChanged(data.exp_status);
     }
